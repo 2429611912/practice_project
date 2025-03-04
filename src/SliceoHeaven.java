@@ -65,4 +65,3 @@ public class SliceoHeaven {
         System.out.println("Order Total: " + orderTotal);
     }
 }
-  
