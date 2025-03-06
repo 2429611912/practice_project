@@ -1,18 +1,20 @@
+import java.util.Scanner;
 public class SliceoHeaven {
-    public String storeName, storeAddress, storeEmail, storePhone, storeMenu; 
+    public String storeName, storeAddress, storeEmail, storePhone, storeMenu;
     public String pizzaIngredients;
     public double pizzaPrice;
     public String sides, drinks;
-    private String orderID;
-    private double orderTotal;
-    private static final String DEF_ORDER_ID = "DEF - SOH - 099";
-    private static final String DEF_PIZZA_INGREDIENTS = "Mozzarella Cheese";
-    private static final double DEF_ORDER_TOTAL = 15.00;
+    public String orderID;
+    public double orderTotal;
+
+    public String defOrderID = "DEF - SOH - 099";
+    public String defPizzaIngredients = "Mozzarella Cheese";
+    public double defOrderTotal = 15.00;
 
     public SliceoHeaven() {
-        this.orderID = DEF_ORDER_ID;
-        this.pizzaIngredients = DEF_PIZZA_INGREDIENTS;
-        this.orderTotal = DEF_ORDER_TOTAL;
+        this.orderID = defOrderID;
+        this.pizzaIngredients = defPizzaIngredients;
+        this.orderTotal = defOrderTotal;
         this.sides = "";
         this.drinks = "";
     }
@@ -20,22 +22,6 @@ public class SliceoHeaven {
     public SliceoHeaven(String orderID, String pizzaIngredients, double orderTotal) {
         this.orderID = orderID;
         this.pizzaIngredients = pizzaIngredients;
-        this.orderTotal = orderTotal;
-    }
-
-    public String getOrderID() {
-        return orderID;
-    }
-
-    public void setOrderID(String orderID) {
-        this.orderID = orderID;
-    }
-
-    public double getOrderTotal() {
-        return orderTotal;
-    }
-
-    public void setOrderTotal(double orderTotal) {
         this.orderTotal = orderTotal;
     }
 
@@ -47,9 +33,10 @@ public class SliceoHeaven {
         System.out.println("Pizza is being prepared");
         try {
             Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            System.out.println("Pizza is ready for pickup!");
+        } catch (Exception e) {
+            System.out.println("Something went wrong while making pizza.");
         }
+        System.out.println("Pizza is ready for pickup!");
         System.out.println("Your order is ready!");
         printReceipt();
     }
@@ -58,10 +45,26 @@ public class SliceoHeaven {
         System.out.println("Making pizza with ingredients: " + pizzaIngredients);
     }
 
-    private void printReceipt() {
+    public void printReceipt() {
         System.out.println("********RECEIPT********");
         System.out.println("Order ID: " + orderID);
         System.out.println("Pizza Ingredients: " + pizzaIngredients);
         System.out.println("Order Total: " + orderTotal);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        SliceoHeaven pizzaShop = new SliceoHeaven();
+
+        System.out.print("Enter order ID: ");
+        String orderID = scanner.nextLine();
+        System.out.print("Enter pizza ingredients: ");
+        String ingredients = scanner.nextLine();
+        System.out.print("Enter order total: ");
+        double total = scanner.nextDouble();
+        scanner.nextLine();
+
+        pizzaShop.takeOrder(orderID, ingredients, total);
+        scanner.close();
     }
 }
